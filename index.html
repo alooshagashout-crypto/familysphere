@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FamilySphere - المنظومة العالمية الذكية والموثوقة</title>
+    <title>FamilySphere - المنظومة العالمية الذكية ولوحة المدير الخاصة</title>
     
     <meta property="og:title" content="FamilySphere - المنظومة العالمية الشاملة">
     <meta property="og:description" content="منصة عالمية متكاملة للدعم، الصحة، الأقسام التفاعلية، وتحقيق الدخل المستدام والنظيف.">
@@ -152,6 +152,7 @@
             text-align: center;
         }
         
+        /* تصميم لوحة تحكم المدير الخاصة بك مع مساحتك الشخصية للتعلم والحفظ */
         .admin-box {
             background: var(--admin-bg);
             border: 2px solid var(--admin-border);
@@ -166,13 +167,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             margin-top: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         .stat-card {
             background: white;
@@ -190,6 +193,48 @@
             font-size: 1.4rem;
             font-weight: bold;
             color: var(--admin-primary);
+        }
+
+        .personal-study-section {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #fca5a5;
+            margin-top: 20px;
+        }
+        .personal-study-section h3 {
+            color: var(--admin-primary);
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+        .study-item {
+            background: #fff5f5;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .study-item span {
+            font-weight: bold;
+            color: #7f1d1d;
+        }
+        .study-btn {
+            background-color: var(--admin-primary);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+        }
+        .study-btn:hover {
+            background-color: #7f1d1d;
         }
 
         .section-box {
@@ -311,7 +356,7 @@
         </div>
     </div>
 
-    <!-- الخطوة 1: التسجيل (مع الحفظ التلقائي وزر المدير) -->
+    <!-- الخطوة 1: التسجيل للزوار (مع زر الدخول السري لك كمدير) -->
     <div id="registerCard" class="card">
         <h1 id="mainTitle">FamilySphere</h1>
         <p class="subtitle" id="mainSubtitle">المنظومة العالمية الذكية والموثوقة<br>مرحباً بك. اختر مرحلتك التعليمية واستمتع بالأقسام المجانية والتفاعلية.</p>
@@ -341,18 +386,18 @@
             </div>
 
             <button type="submit" id="submitBtn" class="btn-submit">انضم واستعرض المنصة</button>
-            <button type="button" class="btn-admin-login" onclick="loginAsAdmin()">🔑 دخول لوحة تحكم المدير (خاص بك)</button>
+            <button type="button" class="btn-admin-login" onclick="loginAsAdmin()">🔑 دخول لوحة تحكم المدير (مساحتك الخاصة)</button>
         </form>
     </div>
 
-    <!-- لوحة تحكم المدير الخاصة بك -->
+    <!-- لوحة تحكم المدير الخاصة بك (تضم الإحصائيات وبوابتك الخاصة للحفظ والتعلم) -->
     <div id="adminDashboard">
         <div class="admin-box">
             <h2>
-                <span>🛡️ لوحة القيادة الإدارية الخاصة بالمدير العام</span>
-                <button onclick="logoutAdmin()" style="background: white; color: var(--admin-primary); border: 1px solid var(--admin-border); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: bold;">خروج للوضع العادي</button>
+                <span>🛡️ لوحة القيادة الإدارية ومساحتك الخاصة للتعلم</span>
+                <button onclick="logoutAdmin()" style="background: white; color: var(--admin-primary); border: 1px solid var(--admin-border); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: bold;">خروج للوضع العام</button>
             </h2>
-            <p style="color: #7f1d1d; font-size: 0.95rem; margin-bottom: 15px;">مرحباً بك يا قائدنا. هذه المساحة السرية مخصصة لك فقط لمتابعة الأرباح، المدفوعات، وتقارير الزوار النشطين.</p>
+            <p style="color: #7f1d1d; font-size: 0.95rem; margin-bottom: 15px;">مرحباً بك يا قائدنا. هذه المساحة مخصصة لك وحدك لمتابعة الأرباح والزوار، بالإضافة إلى بوابتك الخاصة لحفظ القرآن وتطوير مهاراتك.</p>
             
             <div class="stats-grid">
                 <div class="stat-card">
@@ -373,16 +418,29 @@
                 </div>
             </div>
 
-            <div style="background: white; padding: 15px; border-radius: 10px; border: 1px solid #fecaca; text-align: right;">
-                <h4 style="color: var(--admin-primary); margin-top: 0;">📊 أحدث تقارير النشاط والمدفوعات الحية:</h4>
-                <p style="font-size: 0.9rem; color: #374151; margin: 5px 0;">🔹 انضم زائر جديد من المرحلة الجامعية (تاريخ الانضمام: اليوم).</p>
-                <p style="font-size: 0.9rem; color: #374151; margin: 5px 0;">🔹 تم تفعيل اشتراك متقدم لدعم المنظومة في المرحلة الثالثة (قيمة الدفع: مسجل).</p>
-                <p style="font-size: 0.9rem; color: #374151; margin: 5px 0;">🔹 قسم القرآن الكريم وركن المراهقين يسجلان أعلى معدلات تفاعل واستماع اليوم.</p>
+            <!-- مساحتك الشخصية للتعلم وحفظ القرآن وتطوير المهارات (بعيداً عن الزوار) -->
+            <div class="personal-study-section">
+                <h3>📖 بوابتك الشخصية للتعلم وحفظ القرآن وتطوير المهارات:</h3>
+                
+                <div class="study-item">
+                    <span>🎧 قسم القرآن الكريم (مراجعة وحفظ ما تبقى من السور)</span>
+                    <button class="study-btn" onclick="alert('أهلاً بك في مساحتك الخاصة للقرآن. يمكنك فتح المصحف الإلكتروني ومتابعة حفظك وتلاوتك بكل خشوع وخصوصية.');">فتح مصحف الحفظ 📖</button>
+                </div>
+
+                <div class="study-item">
+                    <span>🚀 أكاديمية التطوير الذاتي وتنمية المهارات الشخصية</span>
+                    <button class="study-btn" onclick="alert('تم فتح مكتبتك الخاصة لتطوير المهارات والخرائط الذهنية والكتب المتقدمة.');">استعراض كتبك ومهاراتك 📚</button>
+                </div>
+
+                <div class="study-item">
+                    <span>📊 تقارير الأنشطة والمدفوعات والزوار التفصيلية</span>
+                    <button class="study-btn" onclick="alert('حركة الزوار طبيعية، وجميع الاشتراكات والمدفوعات مسجلة ومحدثة في نظامك الإداري.');">عرض التقرير الكامل 📋</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- لوحة المنصة للزوار -->
+    <!-- لوحة المنصة للزوار العاديين -->
     <div id="dashboardSection">
         <div class="welcome-banner" id="welcomeBanner">
             ✨ أهلاً بك! تم تحديث المنظومة لتفتح جميع الأقسام بسلاسة وبشكل احترافي وموثوق.
@@ -398,16 +456,16 @@
                 <span>📖 قسم القرآن الكريم والعلوم الشرعية (نسائي ورجالي)</span>
                 <span class="badge free">مجاني بالكامل</span>
             </h3>
-            <p style="color: #4b5563; font-size: 0.95rem;">تلاوة خاشعة، تدبر مبسط، وخدمة التلقين والتجويد وحفظ ما تبقى من السور.</p>
+            <p style="color: #4b5563; font-size: 0.95rem;">تلاوة خاشعة، تدبر مبسط، وخدمة التلقين والتجويد.</p>
             <div class="list-item">
-                <span>🎧 تصفح القرآن، الاستماع، وحفظ السور</span>
+                <span>🎧 تصفح القرآن، الاستماع، والتدبر السريع</span>
                 <a class="action-link" style="background: var(--quran-color);" onclick="toggleContent('quranBox')">استعراض القسم 📖</a>
             </div>
             <div id="quranBox" class="content-box">
                 <h4>محتويات قسم القرآن الكريم:</h4>
                 <p>🔹 **الاستماع المريح:** تلاوة هادئة لتهدئة القلوب وتفريغ التوتر.</p>
                 <p>🔹 **ومضات التدبر السريع:** معاني الآيات في بطاقات ملونة مبسطة.</p>
-                <p>🔹 **خدمة التلقين والتسميع:** متوفرة لمراجعة وحفظ ما تبقى من السور مع المعلمة أستاذة جواهر للنساء، والشيخ إبراهيم للرجال.</p>
+                <p>🔹 **خدمة التلقين والتسميع:** متوفرة مع المعلمة أستاذه جواهر للنساء، والشيخ إبراهيم للرجال.</p>
             </div>
         </div>
 
@@ -430,20 +488,20 @@
             </div>
         </div>
 
-        <!-- 3. المراحل المتقدمة وتطوير المهارات -->
+        <!-- 3. المراحل المتقدمة -->
         <div class="section-box pro-sec">
             <h3>
-                <span>🚀 المراحل المتقدمة وتطوير المهارات والشهادات</span>
+                <span>🚀 المراحل المتقدمة والشهادات (نظام الاشتراكات)</span>
                 <span class="badge pro">دعم استدامة المنصة</span>
             </h3>
-            <p style="color: #4b5563; font-size: 0.95rem;">أكاديمية الدبلوم والماجستير والاعتماد المالي والمهني وتطوير الذات.</p>
+            <p style="color: #4b5563; font-size: 0.95rem;">أكاديمية الدبلوم والماجستير والاعتماد المالي والمهني.</p>
             <div class="list-item">
-                <span>🎓 برامج الدبلوم وتطوير المهارات المتقدمة</span>
+                <span>🎓 برامج الدبلوم والماجستير المهني المتقدم</span>
                 <a class="action-link" style="background: var(--badge-pro);" onclick="toggleContent('proBox')">استعراض البرامج المتقدمة 🚀</a>
             </div>
             <div id="proBox" class="content-box">
                 <h4>محتويات المراحل المتقدمة:</h4>
-                <p>🔹 **أكاديمية الدبلوم:** مسارات تعليمية بخرائط ذهنية وكتب وأبحاث متقدمة لتطوير المهارات.</p>
+                <p>🔹 **أكاديمية الدبلوم:** مسارات تعليمية بخرائط ذهنية وكتب وأبحاث متقدمة.</p>
                 <p>🔹 **الشهادات المعتمدة:** توثيق رسمي ونيل شهادات مهنية تدعم مستقبلك.</p>
                 <p>🔹 **نظام الاشتراكات الرمزية:** دعم استدامة المنصة وتطويرها.</p>
             </div>
