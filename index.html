@@ -2,25 +2,463 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>FamilySphere - منصة العائلة العالمية</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="index, follow">
-    <meta name="description" content="منصة العائلة العالمية FamilySphere - النظام المتكامل لتنظيم وتتبع شؤون العائلة بكفاءة عالية وأمان تام.">
-    <meta name="keywords" content="FamilySphere, منصة العائلة, تنظيم العائلة, منصة عالمية">
+    <title>FamilySphere - المنظومة العالمية الذكية والموثوقة</title>
+    
+    <meta property="og:title" content="FamilySphere - المنظومة العالمية الشاملة">
+    <meta property="og:description" content="منصة عالمية متكاملة للدعم، الصحة، الأقسام التفاعلية، وتحقيق الدخل المستدام والنظيف.">
+    <meta property="og:type" content="website">
+
+    <link rel="manifest" href="manifest.json">
+
     <style>
-        body { font-family: Tahoma, sans-serif; background: linear-gradient(135deg, #1e3c72, #2a5298); color: #fff; text-align: center; padding: 20px; margin: 0; }
-        .card { background: rgba(255,255,255,0.1); backdrop-filter:blur(10px); border-radius: 15px; padding: 20px; margin-top: 20px; box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37); }
-        h1 { font-size: 22px; color: #4cd137; }
-        p { font-size: 14px; line-height: 1.6; }
-        .btn { background: #4cd137; color: #fff; border: none; padding: 12px 20px; border-radius: 25px; font-size: 16px; font-weight: bold; margin-top: 15px; width: 100%; cursor: pointer; }
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #2563eb;
+            --accent: #16a34a;
+            --bg-light: #f8fafc;
+            --text-dark: #1f2937;
+            --white: #ffffff;
+            --badge-free: #16a34a;
+            --badge-pro: #d97706;
+            --teen-color: #7c3aed;
+            --quran-color: #059669;
+            --ads-bg: #f8fafc;
+            --ads-border: #cbd5e1;
+        }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 950px;
+            margin: auto;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            color: white;
+            font-size: 0.9rem;
+        }
+        .top-bar select {
+            width: auto;
+            padding: 5px 10px;
+            font-size: 0.85rem;
+            background: white;
+            border-radius: 6px;
+        }
+        .card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        .subtitle {
+            color: #4b5563;
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #374151;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus {
+            border-color: var(--secondary);
+        }
+        .btn-submit {
+            width: 100%;
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+        .btn-submit:hover {
+            background-color: #15803d;
+        }
+
+        #dashboardSection {
+            display: none;
+        }
+        .welcome-banner {
+            background: #dcfce7;
+            color: #166534;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border: 1px solid #bbf7d0;
+            text-align: center;
+        }
+        .section-box {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: right;
+            margin-bottom: 20px;
+            border-right: 6px solid var(--secondary);
+        }
+        .section-box.free-sec { border-right-color: var(--badge-free); }
+        .section-box.pro-sec { border-right-color: var(--badge-pro); }
+        .section-box.teen-sec { border-right-color: var(--teen-color); }
+        .section-box.quran-sec { border-right-color: var(--quran-color); }
+
+        .content-box {
+            display: none;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: right;
+        }
+        .content-box h4 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        /* تنسيق الإعلانات الرسمية النظيفة والموثوقة */
+        .ads-box {
+            background: var(--ads-bg);
+            border: 1px solid var(--ads-border);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .ads-box p {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .section-box h3 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .badge {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+        }
+        .badge.free { background-color: var(--badge-free); }
+        .badge.pro { background-color: var(--badge-pro); }
+
+        .list-item {
+            background: var(--bg-light);
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .list-item span {
+            font-weight: 500;
+            color: #374151;
+        }
+        .action-link {
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+        .action-link:hover {
+            background-color: #1d4ed8;
+        }
+
+        footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 20px;
+            font-size: 0.85rem;
+        }
     </style>
 </head>
 <body>
-    <h1>FamilySphere - منصة العائلة العالمية</h1>
-    <div class="card">
-        <h3>🌐 النظام نشط وجاهز</h3>
-        <p>تم تفعيل منصة العائلة العالمية بنجاح لاستقبال الزوار وتتبع الأداء.</p>
-        <button class="btn" onclick="alert('أهلاً بك في FamilySphere - النظام يعمل بكفاءة تامة!')">دخول المنصة</button>
+
+<div class="container">
+    
+    <div class="top-bar">
+        <span>🌍 FamilySphere Global Ecosystem</span>
+        <div>
+            <label for="langSelect" style="display:inline; color:white; font-size:0.85rem; margin-left:5px;">Language:</label>
+            <select id="langSelect" onchange="changeLanguage(this.value)">
+                <option value="ar">العربية</option>
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+            </select>
+        </div>
     </div>
+
+    <!-- الخطوة 1: التسجيل -->
+    <div id="registerCard" class="card">
+        <h1 id="mainTitle">FamilySphere</h1>
+        <p class="subtitle" id="mainSubtitle">المنظومة العالمية الذكية والموثوقة<br>مرحباً بك. استمتع بالأقسام المجانية وتصفح المحتوى التفاعلي بكل سهولة.</p>
+        
+        <form id="registrationForm">
+            <div class="form-group">
+                <label id="lblName" for="fullname">الاسم الكامل</label>
+                <input type="text" id="fullname" name="الاسم_الكامل" placeholder="أدخل اسمك الثلاثي" required>
+            </div>
+
+            <div class="form-group">
+                <label id="lblEmail" for="email">البريد الإلكتروني الآمن</label>
+                <input type="email" id="email" name="البريد_الالكتروني" placeholder="name@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label id="lblStage" for="stage">المستوى أو الاهتمام</label>
+                <select id="stage" name="المستوى" required>
+                    <option value="" disabled selected>اختر مستواك...</option>
+                    <option value="مستكشف للمنصة والأساسيات">مستكشف للمنصة والأساسيات</option>
+                    <option value="طالب في المراحل المتقدمة">طالب في المراحل المتقدمة</option>
+                    <option value="باحث عن عمل عن بعد">باحث عن عمل عن بعد</option>
+                </select>
+            </div>
+
+            <button type="submit" id="submitBtn" class="btn-submit">انضم واستعرض المنصة</button>
+        </form>
+    </div>
+
+    <!-- الخطوة 2: لوحة المنصة -->
+    <div id="dashboardSection">
+        <div class="welcome-banner" id="welcomeBanner">
+            ✨ أهلاً بك! تم تحديث المنظومة لتفتح جميع الأقسام بسلاسة وبشكل احترافي وموثوق.
+        </div>
+        
+        <!-- مساحة الإعلانات الرسمية النظيفة والموثوقة -->
+        <div class="ads-box">
+            <p>إعلان برعاية شركاء المنصة (محتوى رسمي وموثوق)</p>
+        </div>
+
+        <!-- 1. قسم القرآن الكريم -->
+        <div class="section-box quran-sec">
+            <h3>
+                <span>📖 قسم القرآن الكريم والعلوم الشرعية (نسائي ورجالي)</span>
+                <span class="badge free">مجاني بالكامل</span>
+            </h3>
+            <p style="color: #4b5563; font-size: 0.95rem;">تلاوة خاشعة، تدبر مبسط، وخدمة التلقين والتجويد.</p>
+            <div class="list-item">
+                <span>🎧 تصفح القرآن، الاستماع، والتدبر السريع</span>
+                <a class="action-link" style="background: var(--quran-color);" onclick="toggleContent('quranBox')">استعراض القسم 📖</a>
+            </div>
+            <div id="quranBox" class="content-box">
+                <h4>محتويات قسم القرآن الكريم:</h4>
+                <p>🔹 **الاستماع المريح:** تلاوة هادئة لتهدئة القلوب وتفريغ التوتر.</p>
+                <p>🔹 **ومضات التدبر السريع:** معاني الآيات في بطاقات ملونة مبسطة.</p>
+                <p>🔹 **خدمة التلقين والتسميع:** متوفرة مع المعلمة أستاذه جواهر للنساء، والشيخ إبراهيم للرجال.</p>
+            </div>
+        </div>
+
+        <!-- 2. المراحل الأولى والثانية -->
+        <div class="section-box free-sec">
+            <h3>
+                <span>🌱 المراحل الأولى والثانية (الأساسيات والمراهقين والصحة)</span>
+                <span class="badge free">مجاني للجميع</span>
+            </h3>
+            <p style="color: #4b5563; font-size: 0.95rem;">ركن المراهقين، الصحة، ورعاية الحوامل لجذب الزوار.</p>
+            <div class="list-item">
+                <span>🎧 ركن المراهقين والدعم النفسي والصحي</span>
+                <a class="action-link" style="background: var(--badge-free);" onclick="toggleContent('freeBox')">استعراض الأساسيات 🌱</a>
+            </div>
+            <div id="freeBox" class="content-box">
+                <h4>محتويات المراحل الأولى والثانية:</h4>
+                <p>🔹 **ركن المراهقين:** مساحة "اسمعني ولا تحكم علي" لبناء الثقة بالنفس والدعم النفسي.</p>
+                <p>🔹 **قسم الصحة:** رعاية الحوامل، إرشادات مرضى السكر والضغط، وتخفيف التوتر.</p>
+                <p>🔹 **القصص والتعلم المبسط:** مكتبة قصصية سريعة وممتعة للصغار والكبار.</p>
+            </div>
+        </div>
+
+        <!-- 3. المراحل المتقدمة -->
+        <div class="section-box pro-sec">
+            <h3>
+                <span>🚀 المراحل المتقدمة والشهادات (نظام الاشتراكات)</span>
+                <span class="badge pro">دعم استدامة المنصة</span>
+            </h3>
+            <p style="color: #4b5563; font-size: 0.95rem;">أكاديمية الدبلوم والماجستير والاعتماد المالي والمهني.</p>
+            <div class="list-item">
+                <span>🎓 برامج الدبلوم والماجستير المهني المتقدم</span>
+                <a class="action-link" style="background: var(--badge-pro);" onclick="toggleContent('proBox')">استعراض البرامج المتقدمة 🚀</a>
+            </div>
+            <div id="proBox" class="content-box">
+                <h4>محتويات المراحل المتقدمة:</h4>
+                <p>🔹 **أكاديمية الدبلوم:** مسارات تعليمية بخرائط ذهنية وكتب وأبحاث متقدمة.</p>
+                <p>🔹 **الشهادات المعتمدة:** توثيق رسمي ونيل شهادات مهنية تدعم مستقبلك.</p>
+                <p>🔹 **نظام الاشتراكات الرمزية:** دعم استدامة المنصة وتطويرها.</p>
+            </div>
+        </div>
+
+        <!-- 4. بوابة التشغيل والعمل عن بعد -->
+        <div class="section-box" style="border-right-color: var(--secondary);">
+            <h3>
+                <span>💼 بوابة التشغيل والعمل عن بعد من المنزل</span>
+                <span class="badge" style="background: var(--secondary);">فرص حقيقية</span>
+            </h3>
+            <p style="color: #4b5563; font-size: 0.95rem;">نوفر لك فرص العمل الحر والإنتاج من بيتك ضمن مشاريع المنصة.</p>
+            <div class="list-item">
+                <span>🏠 التقديم على الوظائف المنزلية وتوزيع المهام</span>
+                <a class="action-link" onclick="toggleContent('workBox')">استعراض بوابة التوظيف 💼</a>
+            </div>
+            <div id="workBox" class="content-box">
+                <h4>بوابة التشغيل والعمل من البيت:</h4>
+                <p>🔹 **العمل الحر:** فرص حقيقية للعمل في إدارة المحتوى، التنظيم، والدعم.</p>
+                <p>🔹 **توزيع المهام:** مساعدتك لتكتشف مهاراتك وتعمل في المجال الذي تتألق فيه.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        جميع الحقوق محفوظة © FamilySphere 2026
+    </footer>
+
+</div>
+
+<script>
+    function toggleContent(boxId) {
+        const box = document.getElementById(boxId);
+        if (box.style.display === 'none' || box.style.display === '') {
+            box.style.display = 'block';
+        } else {
+            box.style.display = 'none';
+        }
+    }
+
+    const translations = {
+        ar: {
+            mainTitle: "FamilySphere",
+            mainSubtitle: "المنظومة العالمية الذكية والموثوقة<br>مرحباً بك. استمتع بالأقسام المجانية وتصفح المحتوى التفاعلي بكل سهولة.",
+            lblName: "الاسم الكامل",
+            lblEmail: "البريد الإلكتروني الآمن",
+            lblStage: "المستوى أو الاهتمام",
+            submitBtn: "انضم واستعرض المنصة",
+            welcomeBanner: "✨ أهلاً بك! تم تحديث المنظومة لتفتح جميع الأقسام بسلاسة وبشكل احترافي وموثوق."
+        },
+        en: {
+            mainTitle: "FamilySphere",
+            mainSubtitle: "Smart Global Trusted Ecosystem<br>Welcome. Enjoy free sections and browse interactive content easily.",
+            lblName: "Full Name",
+            lblEmail: "Secure Email",
+            lblStage: "Level or Interest",
+            submitBtn: "Join & Browse",
+            welcomeBanner: "✨ Welcome! All sections open smoothly and professionally."
+        },
+        fr: {
+            mainTitle: "FamilySphere",
+            mainSubtitle: "Écosystème Mondial Fiable<br>Bienvenue. Parcourez le contenu interactif facilement.",
+            lblName: "Nom complet",
+            lblEmail: "E-mail sécurisé",
+            lblStage: "Niveau ou intérêt",
+            submitBtn: "Rejoindre et Parcourir",
+            welcomeBanner: "✨ Bienvenue ! Toutes les sections s'ouvrent en douceur."
+        }
+    };
+
+    function changeLanguage(lang) {
+        const t = translations[lang];
+        if(!t) return;
+        document.getElementById('mainTitle').textContent = t.mainTitle;
+        document.getElementById('mainSubtitle').innerHTML = t.mainSubtitle;
+        document.getElementById('lblName').textContent = t.lblName;
+        document.getElementById('lblEmail').textContent = t.lblEmail;
+        document.getElementById('lblStage').previousElementSibling.textContent = t.lblStage;
+        document.getElementById('submitBtn').textContent = t.submitBtn;
+        document.getElementById('welcomeBanner').textContent = t.welcomeBanner;
+    }
+
+    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.textContent = 'جاري تفعيل المنظومة...';
+
+        const formData = new FormData(this);
+
+        fetch('https://formcarry.com/s/I6VYX8ZkSKb', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if(response.ok) {
+                document.getElementById('registerCard').style.display = 'none';
+                document.getElementById('dashboardSection').style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                alert('حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى.');
+                btn.disabled = false;
+                btn.textContent = 'انضم واستعرض المنصة';
+            }
+        })
+        .catch(error => {
+            alert('تعذر الاتصال بالخادم، تأكد من اتصالك بالإنترنت.');
+            btn.disabled = false;
+            btn.textContent = 'انضم واستعرض المنصة';
+        });
+    });
+</script>
+
 </body>
 </html>
