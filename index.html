@@ -24,7 +24,7 @@
             --teen-color: #7c3aed;
             --quran-color: #059669;
             --ads-bg: #f8fafc;
-            --ads-border: #cbd5e1;
+            --ads-border: #e2e8f0;
         }
         body {
             font-family: system-ui, -apple-system, sans-serif;
@@ -162,19 +162,18 @@
             margin-top: 0;
         }
 
-        /* تنسيق الإعلانات الرسمية النظيفة والموثوقة */
+        /* صندوق إعلانات نظيف تماماً وخالٍ من أي كتابة مزعجة للزائر */
         .ads-box {
             background: var(--ads-bg);
             border: 1px solid var(--ads-border);
-            padding: 15px;
+            padding: 12px;
             border-radius: 12px;
             text-align: center;
             margin-bottom: 20px;
-        }
-        .ads-box p {
-            color: #64748b;
-            font-size: 0.85rem;
-            margin: 0;
+            min-height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .section-box h3 {
@@ -250,10 +249,10 @@
         </div>
     </div>
 
-    <!-- الخطوة 1: التسجيل -->
+    <!-- الخطوة 1: التسجيل (مع الحفظ التلقائي لمنع فقدان البيانات عند ضعف الإنترنت) -->
     <div id="registerCard" class="card">
         <h1 id="mainTitle">FamilySphere</h1>
-        <p class="subtitle" id="mainSubtitle">المنظومة العالمية الذكية والموثوقة<br>مرحباً بك. استمتع بالأقسام المجانية وتصفح المحتوى التفاعلي بكل سهولة.</p>
+        <p class="subtitle" id="mainSubtitle">المنظومة العالمية الذكية والموثوقة<br>مرحباً بك. اختر مرحلتك التعليمية واستمتع بالأقسام المجانية والتفاعلية.</p>
         
         <form id="registrationForm">
             <div class="form-group">
@@ -267,12 +266,15 @@
             </div>
 
             <div class="form-group">
-                <label id="lblStage" for="stage">المستوى أو الاهتمام</label>
-                <select id="stage" name="المستوى" required>
-                    <option value="" disabled selected>اختر مستواك...</option>
-                    <option value="مستكشف للمنصة والأساسيات">مستكشف للمنصة والأساسيات</option>
-                    <option value="طالب في المراحل المتقدمة">طالب في المراحل المتقدمة</option>
-                    <option value="باحث عن عمل عن بعد">باحث عن عمل عن بعد</option>
+                <label id="lblStage" for="stage">المرحلة الدراسية أو التعليمية</label>
+                <select id="stage" name="المرحلة_التعليمية" required>
+                    <option value="" disabled selected>اختر مرحلتك الدراسية...</option>
+                    <option value="المرحلة الابتدائية">المرحلة الابتدائية</option>
+                    <option value="المرحلة الإعدادية / المتوسطة">المرحلة الإعدادية / المتوسطة</option>
+                    <option value="المرحلة الثانوية">المرحلة الثانوية</option>
+                    <option value="المرحلة الجامعية">المرحلة الجامعية</option>
+                    <option value="الدراسات العليا والبحث العلمي">الدراسات العليا والبحث العلمي</option>
+                    <option value="مهتم بالتطوير الذاتي والعمل عن بعد">مهتم بالتطوير الذاتي والعمل عن بعد</option>
                 </select>
             </div>
 
@@ -283,12 +285,12 @@
     <!-- الخطوة 2: لوحة المنصة -->
     <div id="dashboardSection">
         <div class="welcome-banner" id="welcomeBanner">
-            ✨ أهلاً بك! تم تحديث المنظومة لتفتح جميع الأقسام بسلاسة وبشكل احترافي وموثوق.
+            ✨ أهلاً بك! تم تحديث المنظومة لتفتح جميع الأقسام بسلاسة وبدون أي رسائل منبثقة مزعجة.
         </div>
         
-        <!-- مساحة الإعلانات الرسمية النظيفة والموثوقة -->
+        <!-- مساحة إعلانية نظيفة وهادئة تماماً بدون أي كتابة مزعجة للزائر -->
         <div class="ads-box">
-            <p>إعلان برعاية شركاء المنصة (محتوى رسمي وموثوق)</p>
+            <!-- هنا ستظهر إعلاناتك الرسمية تلقائياً دون إزعاج الزائر -->
         </div>
 
         <!-- 1. قسم القرآن الكريم -->
@@ -374,6 +376,21 @@
 </div>
 
 <script>
+    // خاصية الحفظ التلقائي لمنع فقدان البيانات عند ضعف الإنترنت أو تحديث الصفحة
+    const fullnameInput = document.getElementById('fullname');
+    const emailInput = document.getElementById('email');
+    const stageSelect = document.getElementById('stage');
+
+    // استرجاع البيانات المحفوظة إن وجدت
+    if (localStorage.getItem('fs_fullname')) fullnameInput.value = localStorage.getItem('fs_fullname');
+    if (localStorage.getItem('fs_email')) emailInput.value = localStorage.getItem('fs_email');
+    if (localStorage.getItem('fs_stage')) stageSelect.value = localStorage.getItem('fs_stage');
+
+    // حفظ البيانات تلقائياً أثناء الكتابة
+    fullnameInput.addEventListener('input', () => localStorage.setItem('fs_fullname', fullnameInput.value));
+    emailInput.addEventListener('input', () => localStorage.setItem('fs_email', emailInput.value));
+    stageSelect.addEventListener('change', () => localStorage.setItem('fs_stage', stageSelect.value));
+
     function toggleContent(boxId) {
         const box = document.getElementById(boxId);
         if (box.style.display === 'none' || box.style.display === '') {
@@ -386,30 +403,30 @@
     const translations = {
         ar: {
             mainTitle: "FamilySphere",
-            mainSubtitle: "المنظومة العالمية الذكية والموثوقة<br>مرحباً بك. استمتع بالأقسام المجانية وتصفح المحتوى التفاعلي بكل سهولة.",
+            mainSubtitle: "المنظومة العالمية الذكية والموثوقة<br>مرحباً بك. اختر مرحلتك التعليمية واستمتع بالأقسام المجانية والتفاعلية.",
             lblName: "الاسم الكامل",
             lblEmail: "البريد الإلكتروني الآمن",
-            lblStage: "المستوى أو الاهتمام",
+            lblStage: "المرحلة الدراسية أو التعليمية",
             submitBtn: "انضم واستعرض المنصة",
-            welcomeBanner: "✨ أهلاً بك! تم تحديث المنظومة لتفتح جميع الأقسام بسلاسة وبشكل احترافي وموثوق."
+            welcomeBanner: "✨ أهلاً بك! تم تحديث المنظومة لتشمل كافة المراحل التعليمية وتفتح جميع الأقسام بسلاسة."
         },
         en: {
             mainTitle: "FamilySphere",
-            mainSubtitle: "Smart Global Trusted Ecosystem<br>Welcome. Enjoy free sections and browse interactive content easily.",
+            mainSubtitle: "Smart Global Trusted Ecosystem<br>Welcome. Choose your educational stage and enjoy free interactive sections.",
             lblName: "Full Name",
             lblEmail: "Secure Email",
-            lblStage: "Level or Interest",
+            lblStage: "Educational Level",
             submitBtn: "Join & Browse",
-            welcomeBanner: "✨ Welcome! All sections open smoothly and professionally."
+            welcomeBanner: "✨ Welcome! All educational stages are now included."
         },
         fr: {
             mainTitle: "FamilySphere",
-            mainSubtitle: "Écosystème Mondial Fiable<br>Bienvenue. Parcourez le contenu interactif facilement.",
+            mainSubtitle: "Écosystème Mondial Fiable<br>Bienvenue. Choisissez votre niveau éducatif.",
             lblName: "Nom complet",
             lblEmail: "E-mail sécurisé",
-            lblStage: "Niveau ou intérêt",
+            lblStage: "Niveau éducatif",
             submitBtn: "Rejoindre et Parcourir",
-            welcomeBanner: "✨ Bienvenue ! Toutes les sections s'ouvrent en douceur."
+            welcomeBanner: "✨ Bienvenue ! Tous les niveaux éducatifs sont inclus."
         }
     };
 
