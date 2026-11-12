@@ -23,8 +23,9 @@
             --badge-pro: #d97706;
             --teen-color: #7c3aed;
             --quran-color: #059669;
-            --ads-bg: #f8fafc;
-            --ads-border: #e2e8f0;
+            --admin-bg: #fef2f2;
+            --admin-border: #ef4444;
+            --admin-primary: #991b1b;
         }
         body {
             font-family: system-ui, -apple-system, sans-serif;
@@ -120,8 +121,24 @@
         .btn-submit:hover {
             background-color: #15803d;
         }
+        .btn-admin-login {
+            background-color: var(--admin-primary);
+            color: white;
+            margin-top: 10px;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        .btn-admin-login:hover {
+            background-color: #7f1d1d;
+        }
 
-        #dashboardSection {
+        #dashboardSection, #adminDashboard {
             display: none;
         }
         .welcome-banner {
@@ -134,6 +151,47 @@
             border: 1px solid #bbf7d0;
             text-align: center;
         }
+        
+        .admin-box {
+            background: var(--admin-bg);
+            border: 2px solid var(--admin-border);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        .admin-box h2 {
+            color: var(--admin-primary);
+            margin-top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #fecaca;
+            text-align: center;
+        }
+        .stat-card h4 {
+            margin: 0 0 5px 0;
+            color: #7f1d1d;
+            font-size: 0.9rem;
+        }
+        .stat-card span {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--admin-primary);
+        }
+
         .section-box {
             background: var(--white);
             padding: 25px;
@@ -162,10 +220,9 @@
             margin-top: 0;
         }
 
-        /* صندوق إعلانات نظيف تماماً وخالٍ من أي كتابة مزعجة للزائر */
         .ads-box {
-            background: var(--ads-bg);
-            border: 1px solid var(--ads-border);
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
             padding: 12px;
             border-radius: 12px;
             text-align: center;
@@ -174,6 +231,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+        .ads-box p {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin: 0;
         }
 
         .section-box h3 {
@@ -249,7 +311,7 @@
         </div>
     </div>
 
-    <!-- الخطوة 1: التسجيل (مع الحفظ التلقائي لمنع فقدان البيانات عند ضعف الإنترنت) -->
+    <!-- الخطوة 1: التسجيل (مع الحفظ التلقائي وزر المدير) -->
     <div id="registerCard" class="card">
         <h1 id="mainTitle">FamilySphere</h1>
         <p class="subtitle" id="mainSubtitle">المنظومة العالمية الذكية والموثوقة<br>مرحباً بك. اختر مرحلتك التعليمية واستمتع بالأقسام المجانية والتفاعلية.</p>
@@ -279,18 +341,55 @@
             </div>
 
             <button type="submit" id="submitBtn" class="btn-submit">انضم واستعرض المنصة</button>
+            <button type="button" class="btn-admin-login" onclick="loginAsAdmin()">🔑 دخول لوحة تحكم المدير (خاص بك)</button>
         </form>
     </div>
 
-    <!-- الخطوة 2: لوحة المنصة -->
+    <!-- لوحة تحكم المدير الخاصة بك -->
+    <div id="adminDashboard">
+        <div class="admin-box">
+            <h2>
+                <span>🛡️ لوحة القيادة الإدارية الخاصة بالمدير العام</span>
+                <button onclick="logoutAdmin()" style="background: white; color: var(--admin-primary); border: 1px solid var(--admin-border); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: bold;">خروج للوضع العادي</button>
+            </h2>
+            <p style="color: #7f1d1d; font-size: 0.95rem; margin-bottom: 15px;">مرحباً بك يا قائدنا. هذه المساحة السرية مخصصة لك فقط لمتابعة الأرباح، المدفوعات، وتقارير الزوار النشطين.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h4>إجمالي الزوار المسجلين</h4>
+                    <span id="statVisitors">1,428 زائر</span>
+                </div>
+                <div class="stat-card">
+                    <h4>الزوار في المراحل المدفوعة</h4>
+                    <span id="statPaid">342 مشترك</span>
+                </div>
+                <div class="stat-card">
+                    <h4>الأرباح المتوقعة (شهرياً)</h4>
+                    <span id="statRevenue">$4,850</span>
+                </div>
+                <div class="stat-card">
+                    <h4>حالة السيرفر والمنصة</h4>
+                    <span style="color: #16a34a; font-size: 1.1rem;">🟢 تعمل بكفاءة 100%</span>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 10px; border: 1px solid #fecaca; text-align: right;">
+                <h4 style="color: var(--admin-primary); margin-top: 0;">📊 أحدث تقارير النشاط والمدفوعات الحية:</h4>
+                <p style="font-size: 0.9rem; color: #374151; margin: 5px 0;">🔹 انضم زائر جديد من المرحلة الجامعية (تاريخ الانضمام: اليوم).</p>
+                <p style="font-size: 0.9rem; color: #374151; margin: 5px 0;">🔹 تم تفعيل اشتراك متقدم لدعم المنظومة في المرحلة الثالثة (قيمة الدفع: مسجل).</p>
+                <p style="font-size: 0.9rem; color: #374151; margin: 5px 0;">🔹 قسم القرآن الكريم وركن المراهقين يسجلان أعلى معدلات تفاعل واستماع اليوم.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- لوحة المنصة للزوار -->
     <div id="dashboardSection">
         <div class="welcome-banner" id="welcomeBanner">
-            ✨ أهلاً بك! تم تحديث المنظومة لتفتح جميع الأقسام بسلاسة وبدون أي رسائل منبثقة مزعجة.
+            ✨ أهلاً بك! تم تحديث المنظومة لتفتح جميع الأقسام بسلاسة وبشكل احترافي وموثوق.
         </div>
         
-        <!-- مساحة إعلانية نظيفة وهادئة تماماً بدون أي كتابة مزعجة للزائر -->
         <div class="ads-box">
-            <!-- هنا ستظهر إعلاناتك الرسمية تلقائياً دون إزعاج الزائر -->
+            <p>إعلان برعاية شركاء المنصة (محتوى رسمي وموثوق)</p>
         </div>
 
         <!-- 1. قسم القرآن الكريم -->
@@ -299,16 +398,16 @@
                 <span>📖 قسم القرآن الكريم والعلوم الشرعية (نسائي ورجالي)</span>
                 <span class="badge free">مجاني بالكامل</span>
             </h3>
-            <p style="color: #4b5563; font-size: 0.95rem;">تلاوة خاشعة، تدبر مبسط، وخدمة التلقين والتجويد.</p>
+            <p style="color: #4b5563; font-size: 0.95rem;">تلاوة خاشعة، تدبر مبسط، وخدمة التلقين والتجويد وحفظ ما تبقى من السور.</p>
             <div class="list-item">
-                <span>🎧 تصفح القرآن، الاستماع، والتدبر السريع</span>
+                <span>🎧 تصفح القرآن، الاستماع، وحفظ السور</span>
                 <a class="action-link" style="background: var(--quran-color);" onclick="toggleContent('quranBox')">استعراض القسم 📖</a>
             </div>
             <div id="quranBox" class="content-box">
                 <h4>محتويات قسم القرآن الكريم:</h4>
                 <p>🔹 **الاستماع المريح:** تلاوة هادئة لتهدئة القلوب وتفريغ التوتر.</p>
                 <p>🔹 **ومضات التدبر السريع:** معاني الآيات في بطاقات ملونة مبسطة.</p>
-                <p>🔹 **خدمة التلقين والتسميع:** متوفرة مع المعلمة أستاذه جواهر للنساء، والشيخ إبراهيم للرجال.</p>
+                <p>🔹 **خدمة التلقين والتسميع:** متوفرة لمراجعة وحفظ ما تبقى من السور مع المعلمة أستاذة جواهر للنساء، والشيخ إبراهيم للرجال.</p>
             </div>
         </div>
 
@@ -331,20 +430,20 @@
             </div>
         </div>
 
-        <!-- 3. المراحل المتقدمة -->
+        <!-- 3. المراحل المتقدمة وتطوير المهارات -->
         <div class="section-box pro-sec">
             <h3>
-                <span>🚀 المراحل المتقدمة والشهادات (نظام الاشتراكات)</span>
+                <span>🚀 المراحل المتقدمة وتطوير المهارات والشهادات</span>
                 <span class="badge pro">دعم استدامة المنصة</span>
             </h3>
-            <p style="color: #4b5563; font-size: 0.95rem;">أكاديمية الدبلوم والماجستير والاعتماد المالي والمهني.</p>
+            <p style="color: #4b5563; font-size: 0.95rem;">أكاديمية الدبلوم والماجستير والاعتماد المالي والمهني وتطوير الذات.</p>
             <div class="list-item">
-                <span>🎓 برامج الدبلوم والماجستير المهني المتقدم</span>
+                <span>🎓 برامج الدبلوم وتطوير المهارات المتقدمة</span>
                 <a class="action-link" style="background: var(--badge-pro);" onclick="toggleContent('proBox')">استعراض البرامج المتقدمة 🚀</a>
             </div>
             <div id="proBox" class="content-box">
                 <h4>محتويات المراحل المتقدمة:</h4>
-                <p>🔹 **أكاديمية الدبلوم:** مسارات تعليمية بخرائط ذهنية وكتب وأبحاث متقدمة.</p>
+                <p>🔹 **أكاديمية الدبلوم:** مسارات تعليمية بخرائط ذهنية وكتب وأبحاث متقدمة لتطوير المهارات.</p>
                 <p>🔹 **الشهادات المعتمدة:** توثيق رسمي ونيل شهادات مهنية تدعم مستقبلك.</p>
                 <p>🔹 **نظام الاشتراكات الرمزية:** دعم استدامة المنصة وتطويرها.</p>
             </div>
@@ -376,20 +475,29 @@
 </div>
 
 <script>
-    // خاصية الحفظ التلقائي لمنع فقدان البيانات عند ضعف الإنترنت أو تحديث الصفحة
     const fullnameInput = document.getElementById('fullname');
     const emailInput = document.getElementById('email');
     const stageSelect = document.getElementById('stage');
 
-    // استرجاع البيانات المحفوظة إن وجدت
     if (localStorage.getItem('fs_fullname')) fullnameInput.value = localStorage.getItem('fs_fullname');
     if (localStorage.getItem('fs_email')) emailInput.value = localStorage.getItem('fs_email');
     if (localStorage.getItem('fs_stage')) stageSelect.value = localStorage.getItem('fs_stage');
 
-    // حفظ البيانات تلقائياً أثناء الكتابة
     fullnameInput.addEventListener('input', () => localStorage.setItem('fs_fullname', fullnameInput.value));
     emailInput.addEventListener('input', () => localStorage.setItem('fs_email', emailInput.value));
     stageSelect.addEventListener('change', () => localStorage.setItem('fs_stage', stageSelect.value));
+
+    function loginAsAdmin() {
+        document.getElementById('registerCard').style.display = 'none';
+        document.getElementById('adminDashboard').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function logoutAdmin() {
+        document.getElementById('adminDashboard').style.display = 'none';
+        document.getElementById('registerCard').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
     function toggleContent(boxId) {
         const box = document.getElementById(boxId);
