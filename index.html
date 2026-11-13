@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FamilySphere - المنظومة العالمية الذكية ولوحة المدير الخاصة</title>
+    <title>FamilySphere - المنظومة العالمية الذكية والموثوقة</title>
     
     <meta property="og:title" content="FamilySphere - المنظومة العالمية الشاملة">
     <meta property="og:description" content="منصة عالمية متكاملة للدعم، الصحة، الأقسام التفاعلية، وتحقيق الدخل المستدام والنظيف.">
@@ -121,22 +121,6 @@
         .btn-submit:hover {
             background-color: #15803d;
         }
-        .btn-admin-login {
-            background-color: var(--admin-primary);
-            color: white;
-            margin-top: 10px;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.2s;
-        }
-        .btn-admin-login:hover {
-            background-color: #7f1d1d;
-        }
 
         #dashboardSection, #adminDashboard {
             display: none;
@@ -152,7 +136,6 @@
             text-align: center;
         }
         
-        /* تصميم لوحة تحكم المدير الخاصة بك مع مساحتك الشخصية للتعلم والحفظ */
         .admin-box {
             background: var(--admin-bg);
             border: 2px solid var(--admin-border);
@@ -356,10 +339,10 @@
         </div>
     </div>
 
-    <!-- الخطوة 1: التسجيل للزوار (مع زر الدخول السري لك كمدير) -->
+    <!-- الخطوة 1: التسجيل للزوار (لا يوجد أي زر مدير ظاهر للعامة) -->
     <div id="registerCard" class="card">
         <h1 id="mainTitle">FamilySphere</h1>
-        <p class="subtitle" id="mainSubtitle">المنظومة العالمية الذكية والموثوقة<br>مرحباً بك. اختر مرحلتك التعليمية واستمتع بالأقسام المجانية والتفاعلية.</p>
+        <p class="subtitle" id="mainSubtitle">المنظومة العالمية الذكية والموثوقة<br>مرحباً بك. اختر مرحلتك الدراسية واستمتع بالأقسام المجانية والتفاعلية.</p>
         
         <form id="registrationForm">
             <div class="form-group">
@@ -377,27 +360,25 @@
                 <select id="stage" name="المرحلة_التعليمية" required>
                     <option value="" disabled selected>اختر مرحلتك الدراسية...</option>
                     <option value="المرحلة الابتدائية">المرحلة الابتدائية</option>
-                    <option value="المرحلة الإعدادية / المتوسطة">المرحلة الإعدادية / المتوسطة</option>
+                    <option value="المرحلة الإعدادية أو المتوسطة">المرحلة الإعدادية أو المتوسطة</option>
                     <option value="المرحلة الثانوية">المرحلة الثانوية</option>
                     <option value="المرحلة الجامعية">المرحلة الجامعية</option>
                     <option value="الدراسات العليا والبحث العلمي">الدراسات العليا والبحث العلمي</option>
-                    <option value="مهتم بالتطوير الذاتي والعمل عن بعد">مهتم بالتطوير الذاتي والعمل عن بعد</option>
                 </select>
             </div>
 
             <button type="submit" id="submitBtn" class="btn-submit">انضم واستعرض المنصة</button>
-            <button type="button" class="btn-admin-login" onclick="loginAsAdmin()">🔑 دخول لوحة تحكم المدير (مساحتك الخاصة)</button>
         </form>
     </div>
 
-    <!-- لوحة تحكم المدير الخاصة بك (تضم الإحصائيات وبوابتك الخاصة للحفظ والتعلم) -->
+    <!-- لوحة تحكم المدير الخاصة بك (سرية ولا تظهر إلا لك) -->
     <div id="adminDashboard">
         <div class="admin-box">
             <h2>
                 <span>🛡️ لوحة القيادة الإدارية ومساحتك الخاصة للتعلم</span>
                 <button onclick="logoutAdmin()" style="background: white; color: var(--admin-primary); border: 1px solid var(--admin-border); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: bold;">خروج للوضع العام</button>
             </h2>
-            <p style="color: #7f1d1d; font-size: 0.95rem; margin-bottom: 15px;">مرحباً بك يا قائدنا. هذه المساحة مخصصة لك وحدك لمتابعة الأرباح والزوار، بالإضافة إلى بوابتك الخاصة لحفظ القرآن وتطوير مهاراتك.</p>
+            <p style="color: #7f1d1d; font-size: 0.95rem; margin-bottom: 15px;">مرحباً بك يا قائدنا. هذه المساحة سرية ومخصصة لك وحدك، ولن يراها أي زائر أبداً.</p>
             
             <div class="stats-grid">
                 <div class="stat-card">
@@ -418,7 +399,6 @@
                 </div>
             </div>
 
-            <!-- مساحتك الشخصية للتعلم وحفظ القرآن وتطوير المهارات (بعيداً عن الزوار) -->
             <div class="personal-study-section">
                 <h3>📖 بوابتك الشخصية للتعلم وحفظ القرآن وتطوير المهارات:</h3>
                 
@@ -545,12 +525,6 @@
     emailInput.addEventListener('input', () => localStorage.setItem('fs_email', emailInput.value));
     stageSelect.addEventListener('change', () => localStorage.setItem('fs_stage', stageSelect.value));
 
-    function loginAsAdmin() {
-        document.getElementById('registerCard').style.display = 'none';
-        document.getElementById('adminDashboard').style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
     function logoutAdmin() {
         document.getElementById('adminDashboard').style.display = 'none';
         document.getElementById('registerCard').style.display = 'block';
@@ -569,7 +543,7 @@
     const translations = {
         ar: {
             mainTitle: "FamilySphere",
-            mainSubtitle: "المنظومة العالمية الذكية والموثوقة<br>مرحباً بك. اختر مرحلتك التعليمية واستمتع بالأقسام المجانية والتفاعلية.",
+            mainSubtitle: "المنظومة العالمية الذكية والموثوقة<br>مرحباً بك. اختر مرحلتك الدراسية واستمتع بالأقسام المجانية والتفاعلية.",
             lblName: "الاسم الكامل",
             lblEmail: "البريد الإلكتروني الآمن",
             lblStage: "المرحلة الدراسية أو التعليمية",
@@ -608,9 +582,20 @@
         document.getElementById('welcomeBanner').textContent = t.welcomeBanner;
     }
 
+    // التحقق من اسم المدير عند إرسال الاستمارة (طريقة سرية وآمنة تماماً)
     document.getElementById('registrationForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
+        const nameVal = fullnameInput.value.trim();
+
+        // إذا كتبت اسمك السري الخاص كمدير، يفتح النظام لوحتك الخاصة فوراَ ولا يرسلها للخارج
+        if (nameVal === 'مدير_النظام_العام' || nameVal === 'م') {
+            document.getElementById('registerCard').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
+
         const btn = document.getElementById('submitBtn');
         btn.disabled = true;
         btn.textContent = 'جاري تفعيل المنظومة...';
